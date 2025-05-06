@@ -45,6 +45,20 @@ document.addEventListener("DOMContentLoaded", () => {
     let score = 0;
 
     startBtn.addEventListener("click", startQuiz)
+    nextBtn.addEventListener("click", () => {
+        questonIndex++;
+        if(questonIndex < questions.length){
+            showQuestion();
+        }else{
+            showResult();
+        }
+    })
+    restartBtn.addEventListener("click", () => {
+        questonIndex = 0;
+        score = 0;
+        resultContainer.classList.add("hidden");
+        startQuiz();
+    })
 
     function startQuiz(){
         startBtn.classList.add("hidden");
@@ -71,5 +85,11 @@ document.addEventListener("DOMContentLoaded", () => {
             score++;
         }
         nextBtn.classList.remove("hidden")
+    }
+
+    function showResult(){
+        questionContainer.classList.add("hidden");
+        resultContainer.classList.remove("hidden");
+        scoreDisplay.textContent = `${score} out of ${questions.length}`
     }
 })
