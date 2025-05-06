@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const questions = [
         {
             question: "What does HTML stand for?",
-            choice: [
+            choices: [
               "Hyper Text Markup Language",
               "Home Tool Markup Language",
               "Hyperlinks and Text Markup Language",
@@ -21,23 +21,55 @@ document.addEventListener("DOMContentLoaded", () => {
           },
           {
             question: "Which of these is a programming language?",
-            choice: ["HTTP", "HTML", "Python", "WWW"],
+            choices: ["HTTP", "HTML", "Python", "WWW"],
             answer: "Python"
           },
           {
             question: "What symbol is used to start a comment in Python?",
-            choice: ["//", "#", "/*", "--"],
+            choices: ["//", "#", "/*", "--"],
             answer: "#"
           },
           {
             question: "Which keyword is used to define a function in JavaScript?",
-            choice: ["func", "function", "def", "lambda"],
+            choices: ["func", "function", "def", "lambda"],
             answer: "function"
           },
           {
             question: "Which of these is used to style web pages?",
-            choice: ["HTML", "CSS", "SQL", "Python"],
+            choices: ["HTML", "CSS", "SQL", "Python"],
             answer: "CSS"
           }
     ]
+
+    let questonIndex = 0;
+    let score = 0;
+
+    startBtn.addEventListener("click", startQuiz)
+
+    function startQuiz(){
+        startBtn.classList.add("hidden");
+        resultContainer.classList.add("hidden")
+        questionContainer.classList.remove("hidden");
+        showQuestion();
+    }
+
+    function showQuestion(){
+        nextBtn.classList.add("hidden");
+        questionTextDisplay.textContent = questions[questonIndex].question;
+        choicesList.innerHTML = ""; //clears previous choices
+        questions[questonIndex].choices.forEach((choice) => {
+            const li = document.createElement("li");
+            li.textContent = choice;
+            li.addEventListener("click", () => selectAnswer(choice));
+            choicesList.appendChild(li)
+        })
+    }
+
+    function selectAnswer(choice){
+        const correctAnswer = questions[questonIndex].answer;
+        if(choice === correctAnswer){
+            score++;
+        }
+        nextBtn.classList.remove("hidden")
+    }
 })
